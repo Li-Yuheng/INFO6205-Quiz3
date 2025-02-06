@@ -41,12 +41,14 @@ public class TwoStack {
     Stack<Double> vals = new Stack<Double>();
     public double evaluate(String s) {
         String[] tokens = s.split(" ");
+
         for (String token : tokens) {
             if (token.equals("(")) {
                 continue;
             } else if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
                 ops.push(token);
             } else if (token.equals(")")) {
+
                 if (!ops.isEmpty()) {
                     String op = ops.pop();
                     double val2 = vals.pop();
@@ -59,11 +61,15 @@ public class TwoStack {
                         case "*": result = val1 * val2; break;
                         case "/": result = val1 / val2; break;
                     }
+                    vals.push(result);
                 }
             } else {
+
                 vals.push(Double.parseDouble(token));
             }
         }
+
+
         return vals.pop();
     }
 }
