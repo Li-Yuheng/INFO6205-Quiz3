@@ -39,15 +39,31 @@ operator precedence through the use of parentheses in the input expression.
 public class TwoStack {
     Stack<String> ops  = new Stack<String>();
     Stack<Double> vals = new Stack<Double>();
-    public double evaluate(String s){
+    public double evaluate(String s) {
         String[] tokens = s.split(" ");
-       
-        //Loop over the tokens until you reach the end of the expression
-        //TODO
+        for (String token : tokens) {
+            if (token.equals("(")) {
+                continue;
+            } else if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
+                ops.push(token);
+            } else if (token.equals(")")) {
+                if (!ops.isEmpty()) {
+                    String op = ops.pop();
+                    double val2 = vals.pop();
+                    double val1 = vals.pop();
 
-        
-
-
+                    double result = 0;
+                    switch (op) {
+                        case "+": result = val1 + val2; break;
+                        case "-": result = val1 - val2; break;
+                        case "*": result = val1 * val2; break;
+                        case "/": result = val1 / val2; break;
+                    }
+                }
+            } else {
+                vals.push(Double.parseDouble(token));
+            }
+        }
         return vals.pop();
     }
 }
